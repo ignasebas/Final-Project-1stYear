@@ -13,8 +13,10 @@ public class Menu {
                 int opcion = Integer.parseInt(teclado.nextLine());
                 switch (opcion) {
                     case 1:
+                        crearJugadores(teclado);
                         break;
                     case 2:
+                        
                         break;
                     case 3:
                         System.out.println("\tSaliendo...");
@@ -40,6 +42,24 @@ public class Menu {
                 System.out.print("Cantidad de cartones: ");
                 int cantidadJugador = Integer.parseInt(teclado.nextLine());
                 new Jugador(nombreJugador,cantidadJugador);
+                break;
+            } catch (Exception e) {
+                System.out.println("\tError: introduce un numero entero.");
+            }
+        }
+    }
+
+    public static void empezarPartida(Scanner teclado){
+        System.out.println("EMPEZANDO PARTIDA");
+        System.out.println("-------------------");
+        System.out.print("Nombre: ");
+        String nombreJugador = teclado.nextLine();
+        while (true) {
+            try {
+                System.out.print("Cantidad de cartones: ");
+                int cantidadJugador = Integer.parseInt(teclado.nextLine());
+                new Jugador(nombreJugador,cantidadJugador);
+                break;
             } catch (Exception e) {
                 System.out.println("\tError: introduce un numero entero.");
             }
@@ -47,7 +67,7 @@ public class Menu {
     }
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        
+
         menuInicio(teclado);
 
     }
