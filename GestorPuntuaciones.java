@@ -12,9 +12,11 @@ public class GestorPuntuaciones {
     public static void crearPuntuacion(int contador, String nombreGanador) {
         try{
             arch = new Formatter("./puntuacion.txt");
-            arch.format("%s %s", nombreGanador, contador);
+            arch.format("%s\n", nombreGanador);
+            arch.format("%s\n", contador);
             for (int index = 2; index < 11; index++) {
-                arch.format("\n%s %s", "-", 0);
+                arch.format("%s\n", "-");
+                arch.format("%s\n", 0);
             }
             System.out.println("Se ha creado correctamente el archivo de puntuaciones");
             arch.close();
@@ -26,8 +28,9 @@ public class GestorPuntuaciones {
     public static void actualizarArchivo(){
         try{
             arch = new Formatter("./puntuacion.txt");
-            for (int index = 1; index < 10; index++) {
-                arch.format("\n%s %s", nombresTop10[index], puntuacionTop10[index]);
+            for (int index = 0; index < 10; index++) {
+                arch.format("%s\n", nombresTop10[index]);
+                arch.format("%s\n", puntuacionTop10[index]);
             }
             System.out.println("Se ha actualizado correctamente el archivo de puntuaciones");
             arch.close();
@@ -56,14 +59,11 @@ public class GestorPuntuaciones {
             System.out.println("POSICION\t\tNOMBRE\t\t\tPUNTUACION");
 
             while(miFileBuffer.hasNext() && counter < 12){
-                nombre = miFileBuffer.next();
-                puntuacion = miFileBuffer.next();
+                nombre = miFileBuffer.nextLine();
+                puntuacion = miFileBuffer.nextLine();
                 
                 try {
-                    nombresTop10[counter-1] = nombre;
-                    puntuacionTop10[counter-1] = Integer.parseInt(puntuacion);
-
-                    if (contador >= puntuacionTop10[counter-1]) {
+                    if (contador >= Integer.parseInt(puntuacion)) {
                         if (cambio == false) {
                             nombresTop10[counter-1] = nombreGanador;
                             puntuacionTop10[counter-1] = contador;
@@ -81,6 +81,8 @@ public class GestorPuntuaciones {
                             System.out.printf("%s.-\t\t\t%s\t\t\t%s\n",counter+1,nombre,puntuacion);
                         }
                     }else{
+                        nombresTop10[counter-1] = nombre;
+                        puntuacionTop10[counter-1] = Integer.parseInt(puntuacion);
                         System.out.printf("%s.-\t\t\t%s\t\t\t%s\n",counter,nombre,puntuacion);
                     }
                     counter += 1;
