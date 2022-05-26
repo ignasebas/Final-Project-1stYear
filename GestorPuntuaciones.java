@@ -9,8 +9,12 @@ public class GestorPuntuaciones {
     public static void crearPuntuacion(int contador, String nombreGanador) {
         try{
             arch = new Formatter("./puntuacion.txt");
-            arch.format("%s %s %s ", 1, nombreGanador, contador);
+            arch.format("%s %s %s", 1, nombreGanador, contador);
+            for (int index = 2; index < 11; index++) {
+                arch.format("\n%s %s %s", index, "", "");
+            }
             System.out.println("Se ha creado correctamente el archivo de puntuaciones");
+            arch.close();
         }catch(Exception e){
             System.out.println("La creación del archivo de puntuaciones ha fallado");
         }
@@ -30,8 +34,8 @@ public class GestorPuntuaciones {
         
     }
 
-    public static boolean diezAnterior(int contador, String nombreGanador) {
-
+    public static void diezAnterior(int contador, String nombreGanador) {
+        System.out.println("Nombre Ganador es: " + nombreGanador);
         try{
             File miObj = new File("./puntuacion.txt");
             Scanner miFileBuffer = new Scanner(miObj);
@@ -50,17 +54,17 @@ public class GestorPuntuaciones {
                 puntuacion = miFileBuffer.next();
                 if (contador >= Integer.parseInt(puntuacion)) {
                     if (cambio == false) {
-                        System.out.printf("%s.-\t\t%s\t\t%s\n",posicion,nombreGanador,contador);
+                        System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion,nombreGanador,contador);
                         arch.format("%s %s %s ", posicion,nombreGanador,contador);
                         cambio = true;
-                        System.out.printf("%s.-\t\t%s\t\t%s\n",posicion+1,nombre,puntuacion);
+                        System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion+1,nombre,puntuacion);
                         arch.format("%s %s %s ", posicion+1,nombre,puntuacion);
                     }else{
-                        System.out.printf("%s.-\t\t%s\t\t%s\n",posicion+2,nombreGanador,contador);
+                        System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion+2,nombreGanador,contador);
                         arch.format("%s %s %s ", posicion+2,nombreGanador,contador);
                     }
                 }else{
-                    System.out.printf("%s.-\t\t%s\t\t%s\n",posicion,nombre,puntuacion);
+                    System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion,nombre,puntuacion);
                 }
                 counter += 1;
             }
@@ -68,14 +72,11 @@ public class GestorPuntuaciones {
 
             miFileBuffer.close();
             cierraArchivo();
-            return false;
             
         }catch(FileNotFoundException e){
             crearPuntuacion(contador,nombreGanador);
-            return false;
         }catch (Exception e) {
             System.out.println("Error al leer las puntuaciones");
-            return false;
         }
         
 

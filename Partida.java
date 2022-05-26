@@ -14,7 +14,7 @@ public class Partida {
         }
     }
 
-    public boolean turno(String nombreGanador){
+    public String turno(String nombreGanador){
         boolean resultado;
         Random numeroRandom = new Random();
         Integer numero = bombo.get(numeroRandom.nextInt(bombo.size()));
@@ -23,15 +23,15 @@ public class Partida {
         for (Jugador jugador : jugadores) {
             resultado = jugador.tacharNumeros(numero);
             if (resultado != false) {
+                nombreGanador = jugador.getNombreJugador();
                 System.out.println("");
                 System.out.println("------------------------------------------");
-                System.out.println("El jugador " + jugador.getNombreJugador() + " ha ganado la partida");
-                nombreGanador=jugador.getNombreJugador();
-                return true;
+                System.out.println("El jugador " + nombreGanador + " ha ganado la partida");
+                return nombreGanador;
             }
         }
         bombo.remove(numero);
-        return false;
+        return "";
     }
 }
 /**/

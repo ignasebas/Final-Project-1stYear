@@ -65,20 +65,19 @@ public class Menu {
             jugador.mostrarCartones();
         }
         String nombreGanador = "";
-        boolean resultado;
         int contador = 0;
         while (true) {
             contador += 1;
             System.out.println("-    -   -   -   -   -   -");
             System.out.println("RONDA: " + contador);
-            resultado = partidaActual.turno(nombreGanador);
-            if (resultado != false) {
+            nombreGanador = partidaActual.turno(nombreGanador);
+            if (nombreGanador != "") {
                 break;
             }
-            teclado.nextLine();
+            //teclado.nextLine();
         }
+        System.out.println("Ha conseguido ganar en " + contador + " turnos.");
         contador = 90-contador;
-        System.out.println("Ha conseguido ganar en " + (90+contador) + " turnos.");
         System.out.println("Ha conseguido una puntuación de " + contador + " puntos.");
         System.out.println("------------------------------------------");
         System.out.println("");
