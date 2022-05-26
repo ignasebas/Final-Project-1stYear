@@ -21,18 +21,47 @@ public class Jugador {
 
     }
 
-    private void tacharNumeros(int numero){
+    public String getNombreJugador() {
+        return nombreJugador;
+    }
 
-        System.out.println("El jugador "+nombreJugador+" ha tachado el número "+numero);
+    public boolean tacharNumeros(int numero){
+
+        int numeroCartones = 0;
 
         for (Carton carton : cartones) {
-
             if(carton.tacharNumero(numero)){
+                numeroCartones += 1;
                 System.out.println(carton);
             }
-            
+            if (carton.rellenado()) {
+                return true;
+            }
         }
+        
+        if (numeroCartones != 0) {
+            if (numeroCartones > 1) {
+                System.out.println("El jugador "+ nombreJugador + " ha tachado el numero " + numero + " en " + numeroCartones + " cartones.");
+            }else{
+                System.out.println("El jugador "+ nombreJugador + " ha tachado el numero " + numero + " en " + numeroCartones + " carton.");
+            }
+        }
+        return false;
+    }
 
+    public void mostrarCartones() {
+        System.out.println("Estos son los cartones de " + nombreJugador + ":");
+        for (int index = 1; index < cartones.size()+1; index++) {
+            System.out.println("\t" + index + ".- " + cartones.get(index-1));
+        }
+    }
+
+    public void borrarCartones() {
+        for (Carton carton : cartones) {
+            System.out.println(carton);
+            carton = null;
+        }
+        cartones.clear();
     }
 
 }
