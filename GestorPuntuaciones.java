@@ -6,12 +6,15 @@ import java.util.Scanner;
 public class GestorPuntuaciones {
     private static Formatter arch;
 
+    private static int[] puntuacionTop10 = new int[10];
+    private static String[] nombresTop10 = new String[10];
+
     public static void crearPuntuacion(int contador, String nombreGanador) {
         try{
             arch = new Formatter("./puntuacion.txt");
-            arch.format("%s %s %s", 1, nombreGanador, contador);
+            arch.format("%s %s", nombreGanador, contador);
             for (int index = 2; index < 11; index++) {
-                arch.format("\n%s %s %s", index, "", "");
+                arch.format("\n%s %s", "-", 0);
             }
             System.out.println("Se ha creado correctamente el archivo de puntuaciones");
             arch.close();
@@ -20,9 +23,17 @@ public class GestorPuntuaciones {
         }
     }
 
-    public void escribeArchivo(int posicion, String nombre, int puntacion){
-        System.out.println("Escribiendo...");
-        arch.format("%s %s %s ", posicion, nombre, puntacion);
+    public static void actualizarArchivo(){
+        try{
+            arch = new Formatter("./puntuacion.txt");
+            for (int index = 1; index < 10; index++) {
+                arch.format("\n%s %s", nombresTop10[index], puntuacionTop10[index]);
+            }
+            System.out.println("Se ha actualizado correctamente el archivo de puntuaciones");
+            arch.close();
+        }catch(Exception e){
+            System.out.println("La actualización del archivo de puntuaciones ha fallado");
+        }
     }
 
     public static void cierraArchivo() {
@@ -30,58 +41,64 @@ public class GestorPuntuaciones {
         arch.close();
     }
 
-    public void leerPuntuacion(){
-        
-    }
-
     public static void diezAnterior(int contador, String nombreGanador) {
         System.out.println("Nombre Ganador es: " + nombreGanador);
         try{
             File miObj = new File("./puntuacion.txt");
             Scanner miFileBuffer = new Scanner(miObj);
-            String posicion, nombre,puntuacion = "";
-            int counter = 0;
+            String nombre,puntuacion = "";
+            int counter = 1;
             boolean cambio = false;
             System.out.println("------------------------------------------");
             System.out.println("");
             System.out.println("TOP 10");
             System.out.println("");
-            System.out.println("POSICION\t\tNOMBRE\t\tPUNTUACION");
+            System.out.println("POSICION\t\tNOMBRE\t\t\tPUNTUACION");
 
-            while(miFileBuffer.hasNext() && counter < 11){
-                posicion = miFileBuffer.next();
+            while(miFileBuffer.hasNext() && counter < 12){
                 nombre = miFileBuffer.next();
                 puntuacion = miFileBuffer.next();
-                if (contador >= Integer.parseInt(puntuacion)) {
-                    if (cambio == false) {
-                        System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion,nombreGanador,contador);
-                        arch.format("%s %s %s ", posicion,nombreGanador,contador);
-                        cambio = true;
-                        System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion+1,nombre,puntuacion);
-                        arch.format("%s %s %s ", posicion+1,nombre,puntuacion);
-                    }else{
-                        System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion+2,nombreGanador,contador);
-                        arch.format("%s %s %s ", posicion+2,nombreGanador,contador);
-                    }
-                }else{
-                    System.out.printf("%s.-\t\t\t%s\t\t%s\n",posicion,nombre,puntuacion);
-                }
-                counter += 1;
-            }
-            
+                
+                try {
+                    nombresTop10[counter-1] = nombre;
+                    puntuacionTop10[counter-1] = Integer.parseInt(puntuacion);
 
-            miFileBuffer.close();
+                    if (contador >= puntuacionTop10[counter-1]) {
+                        if (cambio == false) {
+                            nombresTop10[counter-1] = nombreGanador;
+                            puntuacionTop10[counter-1] = contador;
+                            System.out.printf("%s.-\t\t\t%s\t\t\t%s\n",counter,nombreGanador,contador);
+
+                            cambio = true;
+                            
+                            nombresTop10[counter] = nombre;
+                            puntuacionTop10[counter] = Integer.parseInt(puntuacion);
+                            System.out.printf("%s.-\t\t\t%s\t\t\t%s\n",counter+1,nombre,puntuacion);
+
+                        }else{
+                            nombresTop10[counter] = nombre;
+                            puntuacionTop10[counter] = Integer.parseInt(puntuacion);
+                            System.out.printf("%s.-\t\t\t%s\t\t\t%s\n",counter+1,nombre,puntuacion);
+                        }
+                    }else{
+                        System.out.printf("%s.-\t\t\t%s\t\t\t%s\n",counter,nombre,puntuacion);
+                    }
+                    counter += 1;
+
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+            actualizarArchivo();
             cierraArchivo();
             
         }catch(FileNotFoundException e){
             crearPuntuacion(contador,nombreGanador);
-        }catch (Exception e) {
-            System.out.println("Error al leer las puntuaciones");
+        }catch(Exception e){
+            System.out.println("Error al leer las puntuaciones.");
         }
         
+        
 
-    }
-
-    public static void diezNuevo(int contador, String nombreGanador) {
     }
 }
