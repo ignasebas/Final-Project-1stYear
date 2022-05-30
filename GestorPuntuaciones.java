@@ -91,6 +91,7 @@ public class GestorPuntuaciones {
                     break;
                 }
             }
+            miFileBuffer.close();
             actualizarArchivo();
             cierraArchivo();
             

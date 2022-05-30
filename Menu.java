@@ -12,7 +12,7 @@ public class Menu {
             System.out.println("1.Introducir nuevo jugador");
             System.out.println("2.Iniciar partida");
             System.out.println("3.Salir");
-            //try {
+            try {
                 int opcion = Integer.parseInt(teclado.nextLine());
                 switch (opcion) {
                     case 1:
@@ -28,9 +28,9 @@ public class Menu {
                         System.out.println("\tIntroduce una opción valida. (1 o 2)");
                         break;
                 }
-            //} catch (Exception e) {
-            //    System.out.println("\tPorfavor, introduce un numero entre el 1 y el 2.");
-            //}
+            } catch (Exception e) {
+                System.out.println("\tPorfavor, introduce un numero entre el 1 y el 2.");
+            }
         }
         
     }
@@ -74,7 +74,7 @@ public class Menu {
             if (nombreGanador != "") {
                 break;
             }
-            //teclado.nextLine();
+            teclado.nextLine();
         }
         System.out.println("Ha conseguido ganar en " + contador + " turnos.");
         contador = 90-contador;
