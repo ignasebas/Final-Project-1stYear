@@ -6,6 +6,7 @@ public class Partida {
     private ArrayList<Integer> bombo = new ArrayList<Integer>(90);
     private ArrayList<Jugador> jugadores;
   
+    //Crear Partida(Bombo y Jugadores)
     public Partida(ArrayList<Jugador> jugadores){
         //números bombo
         this.jugadores = jugadores;
@@ -14,6 +15,7 @@ public class Partida {
         }
     }
 
+    //Ejecutar turnos(Saca número y cada jugador revisa y modifica su cartón)
     public String turno(String nombreGanador){
         boolean resultado;
         Random numeroRandom = new Random();
@@ -26,7 +28,7 @@ public class Partida {
                 nombreGanador = jugador.getNombreJugador();
                 System.out.println("");
                 System.out.println("------------------------------------------");
-                System.out.println("El jugador " + nombreGanador + " ha ganado la partida");
+                System.out.println("Enhorabuena! " + nombreGanador + " has ganado la partida");
                 return nombreGanador;
             }
         }
@@ -34,4 +36,3 @@ public class Partida {
         return "";
     }
 }
-/**/

@@ -4,6 +4,7 @@ import java.util.Collections;
 public class Carton {
     private ArrayList<Integer> numeros = new ArrayList<Integer>(15);
     
+    //Crea cartón con 15 números únicos aleatorios
     public Carton(){
         ArrayList<Integer> numerosPosibles = new ArrayList<Integer>();
         for (int i = 1; i < 91; i++) numerosPosibles.add(i);
@@ -27,6 +28,7 @@ public class Carton {
         return info;
     }
 
+    //Tacha el número del cartón 
     public boolean tacharNumero(int numero) {
         for (int i = 0; i < numeros.size(); i++) {
             if (numeros.get(i) == numero) {
@@ -37,6 +39,7 @@ public class Carton {
         return false;
     }
 
+    //Revisa si el cartón está vacio
     public boolean rellenado() {
         if (numeros.size()==0) {
             return true;

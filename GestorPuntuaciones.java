@@ -6,9 +6,11 @@ import java.util.Scanner;
 public class GestorPuntuaciones {
     private static Formatter arch;
 
+    //Arraylocal para almacenar puntuación y nombre
     private static int[] puntuacionTop10 = new int[10];
     private static String[] nombresTop10 = new String[10];
 
+    //Crear archivo.txt
     public static void crearPuntuacion(int contador, String nombreGanador) {
         try{
             arch = new Formatter("./puntuacion.txt");
@@ -25,6 +27,7 @@ public class GestorPuntuaciones {
         }
     }
 
+    //Reescribir la puntuación una vez terminada la partida(Siempre)
     public static void actualizarArchivo(){
         try{
             arch = new Formatter("./puntuacion.txt");
@@ -39,11 +42,13 @@ public class GestorPuntuaciones {
         }
     }
 
+    //Cierre del archivo
     public static void cierraArchivo() {
         System.out.println("Reiniciando...");
         arch.close();
     }
 
+    //Muestra el Top 10 de puntuaciones de los ganadores
     public static void diezAnterior(int contador, String nombreGanador) {
         System.out.println("Nombre Ganador es: " + nombreGanador);
         try{

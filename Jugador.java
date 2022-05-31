@@ -25,6 +25,7 @@ public class Jugador {
         return nombreJugador;
     }
 
+    //Verifica si hay q tachar el número 
     public boolean tacharNumeros(int numero){
 
         int numeroCartones = 0;
@@ -49,6 +50,7 @@ public class Jugador {
         return false;
     }
 
+    //Imprime cartones en el inicio
     public void mostrarCartones() {
         System.out.println("Estos son los cartones de " + nombreJugador + ":");
         for (int index = 1; index < cartones.size()+1; index++) {
@@ -56,6 +58,7 @@ public class Jugador {
         }
     }
 
+    //Borra cartones
     public void borrarCartones() {
         for (Carton carton : cartones) {
             System.out.println(carton);
